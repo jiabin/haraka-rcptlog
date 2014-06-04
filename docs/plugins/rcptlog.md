@@ -1,4 +1,4 @@
 rcptlog
 ========
 
-Log every delivered email
+Simple haraka plugin for logging delivered emails on filesystem
