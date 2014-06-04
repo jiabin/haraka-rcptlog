@@ -10,6 +10,6 @@ Download the plugin and copy contents of `plugins` folder into `/path/to/haraka_
 
 Once copied you can now enable the plugin by modifying `/path/to/haraka_conf/conf/plugins` file:
 ```
-# Rcptlog
+# /path/to/haraka_conf/conf/plugins
 rcptlog
 ```
