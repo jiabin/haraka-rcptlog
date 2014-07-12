@@ -1,7 +1,7 @@
 haraka-rcptlog
 ==============
 
-Simple haraka plugin for logging delivered emails on filesystem
+Simple [haraka](http://haraka.github.io) plugin for logging sent emails.
 
 
 ## Installing
@@ -13,3 +13,19 @@ Once copied you can now enable the plugin by modifying `/path/to/haraka_conf/con
 # /path/to/haraka_conf/conf/plugins
 rcptlog
 ```
+
+## Configuration
+
+To overwrite default configuration values you need to modify `/path/to/haraka_conf/conf/rcptlog.ini` file.
+
+```
+; Log directory
+logdir=/var/log/haraka   
+
+; Output format. Available formats are: text, json
+format=text
+```
+
+## Uninstalling
+
+Simply remove `plugins/rcptlog.js` and `config/rcptlog.ini`. Don't forget to disable the plugin in your `conf/plugins` file.
