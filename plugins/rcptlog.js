@@ -14,6 +14,14 @@ exports.hook_queue_outbound = function (next, connection) {
     var cfg     = this.config.get('rcptlog.ini');
     var subject = txn.header.headers.subject;
     var logdir  = cfg.main.logdir || '/var/log/haraka';
+    var format  = cfg.main.format || 'text';
+    var formats = ['text', 'json'];
+
+    if (formats.indexOf(format) == -1) {
+        this.logerror('Invalid rcptlog format given: ' + format);
+
+        return next();
+    }
 
     var to = [];
     for (var i = 0; i < txn.rcpt_to.length; i++) {
@@ -34,8 +42,23 @@ exports.hook_queue_outbound = function (next, connection) {
         date = "0"+date;
     }
     var name = logdir + "/rcptlog-" + now.getUTCFullYear().toString() + "-" + month + "-" + date + ".log";
+    if (format === 'json') {
+        var json = JSON.stringify({
+            date: now.toISOString(),
+            from: from,
+            subject: subject,
+            to: to
+        });
+        var str = json;
+    } else {
+        var str = "["+now.toISOString()+"]["+from+"]["+subject+"] " + to;
+    }
+    if (fs.existsSync(name)) {
+        str = "\n" + str;
+    }
+
     var rcptlog = fs.createWriteStream(name, {'flags': 'a'});
-    rcptlog.end("\n["+now.toISOString()+"]["+from+"]["+subject+"] " + to);
+    rcptlog.end(str);
 
     return next();
 }
