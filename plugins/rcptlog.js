@@ -53,12 +53,9 @@ exports.hook_queue_outbound = function (next, connection) {
     } else {
         var str = "["+now.toISOString()+"]["+from+"]["+subject+"] " + to;
     }
-    if (fs.existsSync(name)) {
-        str = "\n" + str;
-    }
 
     var rcptlog = fs.createWriteStream(name, {'flags': 'a'});
-    rcptlog.end(str);
+    rcptlog.end(str + "\n");
 
     return next();
 }
