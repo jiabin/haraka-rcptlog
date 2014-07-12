@@ -41,7 +41,7 @@ exports.hook_queue_outbound = function (next, connection) {
     if (date.substr(0, 1) !== "0" && date.length < 2) {
         date = "0"+date;
     }
-    var name = logdir + "/rcptlog-" + now.getUTCFullYear().toString() + "-" + month + "-" + date + ".log";
+    var name = logdir + "/rcptlog.log";
     if (format === 'json') {
         var json = JSON.stringify({
             date: now.toISOString(),
